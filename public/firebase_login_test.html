@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sample FirebaseUI App</title>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+         https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+
+    <script>
+
+        // https://console.firebase.google.com/u/0/project/homeco2graph/settings/general/web:ZmMwM2M3MzItOGMyMy00M2JhLWI0Y2ItZTFlMDBhNjc2Mjky?hl=ja
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyCg3lGoafnkqnJG6JdMduNxdvz3OjkypiE",
+            authDomain: "homeco2graph.firebaseapp.com",
+            projectId: "homeco2graph",
+            databaseURL: "https://homeco2graph-default-rtdb.asia-southeast1.firebasedatabase.app/",
+            storageBucket: "homeco2graph.appspot.com",
+            messagingSenderId: "72950331904",
+            appId: "1:72950331904:web:33893106c7bbea73cbf6e5",
+            measurementId: "G-2W4JSGTP4L"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+    </script>
+
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+
+</head>
+
+<body>
+
+
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.1/firebase-firestore.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.1/firebase-ui-auth.css" />
+
+
+
+    <div id="message">
+        <h1>Firebaseてすと</h1>
+        <p>文字を入れると更新されます</p>
+        <ul>
+            <li id="chatText"></li>
+            <li><input type="text" name="" id="my_text"></li>
+            <li><a onclick="changeData()">更新</a></li>
+        </ul>
+    </div>
+
+
+    <script>
+        var db = firebase.database();
+        var myChatAll = db.ref("/my/chat/all");
+
+        function changeData() {
+            var text = document.getElementById("my_text").value;
+            myChatAll.set({ title: "example", text: text });
+        }
+
+        myChatAll.on("value", function (snapshot) {
+            document.getElementById("chatText").innerText = snapshot.val().text;
+        });
+    </script>
+
+
+
+</body>
+
+</html>
